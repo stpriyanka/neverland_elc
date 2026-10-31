@@ -30,10 +30,14 @@ export function LoginForm() {
   return (
     <form onSubmit={submit} className="form-card" style={{ maxWidth: 420, margin: '40px auto' }}>
       <h2>Admin login</h2>
-      <label>Username<input value={username} onChange={e => setUsername(e.target.value)} autoComplete="username" required /></label>
-      <label>Password<input type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /></label>
-      {error && <p role="alert" style={{ color: 'crimson' }}>{error}</p>}
-      <button className="pill pill-burgundy" type="submit" disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
+      <div className="form-fields">
+        <label>Username<input value={username} onChange={e => setUsername(e.target.value)} autoComplete="username" required /></label>
+        <label>Password<input type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /></label>
+        {error && <p role="alert" style={{ color: 'crimson' }}>{error}</p>}
+        <div className="form-actions">
+          <button className="pill pill-burgundy" type="submit" disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
+        </div>
+      </div>
     </form>
   );
 }
