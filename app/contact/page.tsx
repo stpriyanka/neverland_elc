@@ -1,0 +1,2 @@
+import {PageHero} from '@/components/Blocks';import {Form} from '@/components/Forms';
+export default function Contact(){return <main><PageHero eyebrow="CONTACT" title="Come and say hello."/><section className="section wrap contact-grid"><div><div className="eyebrow">VISIT US</div><p><strong>[STREET ADDRESS], Banani, Dhaka</strong></p><p>+880 [PHONE]</p><p>hello@[DOMAIN]</p><p>Sun–Thu · 8:00 – 6:00</p><div className="map-placeholder">[MAP – Banani, Dhaka]<div/></div></div><div className="form-card"><h2>Send an enquiry</h2><Form kind="enquiry"/></div></section></main>}
