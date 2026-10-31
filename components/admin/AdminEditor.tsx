@@ -37,12 +37,25 @@ export function AdminEditor({ pages, initial }: { pages: PageDef[]; initial: Rec
   async function save() {
     setBusy(true);
     setStatus('Saving…');
-    const res = await fetch('/api/admin/content', {
-      method: 'PUT',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ values }),
-    });
-    setStatus(res.ok ? 'Saved ✓ — changes are live on the site.' : 'Save failed. Please sign in again.');
+    try {
+      const res = await fetch('/api/admin/content', {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ values }),
+      });
+      if (res.ok) {
+        setStatus('Saved ✓ — changes are live on the site.');
+      } else if (res.status === 401) {
+        setStatus('Your session has expired. Redirecting to sign in…');
+        router.push('/admin/login');
+        router.refresh();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setStatus(`Save failed (${res.status}): ${data.error || 'unknown error'}`);
+      }
+    } catch {
+      setStatus('Save failed: network error. Check the connection and try again.');
+    }
     setBusy(false);
   }
 

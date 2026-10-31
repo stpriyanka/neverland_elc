@@ -1,8 +1,7 @@
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
 import { randomBytes } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { isAdmin } from '@/lib/auth';
+import { writeImage } from '@/lib/storage';
 
 export const runtime = 'nodejs';
 
@@ -18,8 +17,6 @@ export async function POST(req: Request) {
   if (file.size > MAX_BYTES) return NextResponse.json({ error: 'Image must be 5 MB or smaller' }, { status: 413 });
 
   const name = `${Date.now()}-${randomBytes(4).toString('hex')}.${ext}`;
-  const dir = path.join(process.cwd(), 'public', 'uploads');
-  await fs.mkdir(dir, { recursive: true });
-  await fs.writeFile(path.join(dir, name), Buffer.from(await file.arrayBuffer()));
-  return NextResponse.json({ url: `/uploads/${name}` });
+  await writeImage(name, Buffer.from(await file.arrayBuffer()), file.type);
+  return NextResponse.json({ url: `/api/uploads/${name}` });
 }

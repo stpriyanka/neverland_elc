@@ -1,14 +1,13 @@
-// Server-only: reads/writes editable content to data/site-content.json (Option 1: JSON file storage).
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
+// Server-only: reads/writes editable content (Netlify Blobs on Netlify, data/site-content.json locally).
 import { DEFAULTS, FIELD_TYPES } from '@/lib/cms-schema';
+import { readText, writeText } from '@/lib/storage';
 
-const FILE = path.join(process.cwd(), 'data', 'site-content.json');
-const IMAGE_OK = /^(\/uploads\/[\w.-]+|https:\/\/[^\s"'<>]+)$/;
+const KEY = 'site-content.json';
+const IMAGE_OK = /^(\/uploads\/[\w.-]+|\/api\/uploads\/[\w.-]+|https:\/\/[^\s"'<>]+)$/;
 
 async function readOverrides(): Promise<Record<string, string>> {
   try {
-    const parsed = JSON.parse(await fs.readFile(FILE, 'utf8'));
+    const parsed = JSON.parse((await readText(KEY)) ?? '{}');
     return parsed && typeof parsed === 'object' ? parsed : {};
   } catch {
     return {};
@@ -32,8 +31,5 @@ export async function saveContent(values: Record<string, string>) {
       clean[key] = type === 'textarea' ? raw.replace(/\r/g, '') : raw.trim();
     }
   }
-  await fs.mkdir(path.dirname(FILE), { recursive: true });
-  const tmp = FILE + '.tmp';
-  await fs.writeFile(tmp, JSON.stringify(clean, null, 2));
-  await fs.rename(tmp, FILE);
+  await writeText(KEY, JSON.stringify(clean, null, 2));
 }
