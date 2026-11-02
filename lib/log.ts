@@ -1,0 +1,3 @@
+// Best-effort activity log to Axiom. Only non-personal fields may be passed in:
+// event name, form type, reference, status, and a short reason. Never names, emails, phones, DOBs or messages.
+export async function track(event:string,fields:Record<string,string|number>={}){const token=process.env.AXIOM_TOKEN;const dataset=process.env.AXIOM_DATASET;if(!token||!dataset)return;try{await fetch(`https://eu-central-1.aws.edge.axiom.co/v1/ingest/${encodeURIComponent(dataset)}`,{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify([{app:'neverland-elc',event,...fields}]),cache:'no-store',signal:AbortSignal.timeout(3000)})}catch{}}
