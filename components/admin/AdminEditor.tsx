@@ -47,7 +47,7 @@ export function AdminEditor({ pages, initial }: { pages: PageDef[]; initial: Rec
         setStatus('Saved ✓ — changes are live on the site.');
       } else if (res.status === 401) {
         setStatus('Your session has expired. Redirecting to sign in…');
-        router.push('/admin/login');
+        router.push('/team-k7x2q9/login');
         router.refresh();
       } else {
         const data = await res.json().catch(() => ({}));
@@ -61,7 +61,7 @@ export function AdminEditor({ pages, initial }: { pages: PageDef[]; initial: Rec
 
   async function logout() {
     await fetch('/api/admin/logout', { method: 'POST' });
-    router.push('/admin/login');
+    router.push('/team-k7x2q9/login');
     router.refresh();
   }
 

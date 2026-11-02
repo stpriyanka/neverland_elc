@@ -19,7 +19,7 @@ export function LoginForm() {
       body: JSON.stringify({ username, password }),
     });
     if (res.ok) {
-      router.push('/admin');
+      router.push('/team-k7x2q9');
       router.refresh();
     } else {
       setError((await res.json().catch(() => ({}))).error || 'Login failed');

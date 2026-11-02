@@ -1,14 +1,14 @@
-// Server-only admin auth: demo username/password + signed HMAC session cookie.
-// Defaults are for local demo only. Set ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_SESSION_SECRET in production.
+// Server-only admin auth: username/password + signed HMAC session cookie.
+// Fails closed: if ADMIN_USERNAME, ADMIN_PASSWORD or ADMIN_SESSION_SECRET is unset, login is refused.
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { cookies } from 'next/headers';
 
 export const SESSION_COOKIE = 'neverland_admin';
 const TTL_SECONDS = 60 * 60 * 8;
 
-function adminUser() { return process.env.ADMIN_USERNAME || 'admin'; }
-function adminPass() { return process.env.ADMIN_PASSWORD || 'demo1234'; }
-function secret() { return process.env.ADMIN_SESSION_SECRET || 'dev-only-change-me'; }
+function adminUser() { return process.env.ADMIN_USERNAME || ''; }
+function adminPass() { return process.env.ADMIN_PASSWORD || ''; }
+function secret() { return process.env.ADMIN_SESSION_SECRET || ''; }
 
 function safeEqual(a: string, b: string) {
   const A = Buffer.from(a), B = Buffer.from(b);
@@ -20,16 +20,18 @@ function sign(payload: string) {
 }
 
 export function checkCredentials(username: string, password: string) {
+  if (!adminUser() || !adminPass()) return false;
   return safeEqual(username, adminUser()) && safeEqual(password, adminPass());
 }
 
 export function createToken(username: string) {
+  if (!secret()) return '';
   const payload = `${username}|${Math.floor(Date.now() / 1000) + TTL_SECONDS}`;
   return `${Buffer.from(payload).toString('base64url')}.${sign(payload)}`;
 }
 
 export function verifyToken(token?: string) {
-  if (!token) return false;
+  if (!token || !secret() || !adminUser()) return false;
   const [body, sig] = token.split('.');
   if (!body || !sig) return false;
   const payload = Buffer.from(body, 'base64url').toString();
@@ -37,6 +39,7 @@ export function verifyToken(token?: string) {
   const [user, exp] = payload.split('|');
   return user === adminUser() && Number(exp) * 1000 > Date.now();
 }
+
 
 export async function isAdmin() {
   const jar = await cookies();
