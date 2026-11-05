@@ -1,0 +1,29 @@
+/* Temporary landing page, from the supplied design. All rules are scoped under .nl-landing or body:has(.nl-landing) so the full site is unaffected. */
+body:has(.nl-landing){margin:0;background:#f9f5e9}
+.nl-landing,.nl-landing *{box-sizing:border-box}
+.nl-landing{min-height:100vh;background:radial-gradient(ellipse at 48% 41%,#fffdf4 0%,#fbf7eb 58%,#f1e9d6 100%);overflow:hidden;font-family:var(--font-dm),Arial,sans-serif;color:#21191b}
+.nl-landing__canvas{width:min(100%,752px);min-height:825px;margin:0 auto;position:relative;padding:155px 30px 9px;display:flex;flex-direction:column;align-items:center;isolation:isolate}
+.nl-landing__canvas:before{content:'';position:absolute;inset:0;z-index:-1;opacity:.2;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E")}
+.nl-landing .nl-origami{position:absolute;pointer-events:none;filter:drop-shadow(1px 9px 7px #553c2528)}
+.nl-landing .nl-origami--plane{width:250px;top:-36px;right:50px;transform:rotate(-4deg)}
+.nl-landing .nl-origami--boat{width:250px;top:210px;left:-25px;transform:rotate(-3deg)}
+.nl-landing .nl-hero{width:100%;text-align:center;position:relative;z-index:1}
+.nl-landing .nl-hero h1{font-family:var(--font-libre),Georgia,serif;font-size:clamp(31px,5.3vw,43px);font-weight:700;letter-spacing:-1.8px;line-height:1.19;color:#480d21;margin:0 auto 12px;max-width:620px}
+.nl-landing .nl-hero__intro{font-size:15px;line-height:1.35;max-width:365px;margin:0 auto 31px}
+.nl-landing .nl-waitlist-form{width:min(100%,400px);margin:0 auto;display:flex;flex-direction:column;gap:11px}
+.nl-landing .nl-waitlist-form input{height:49px;border:1px solid #c7bda5;border-radius:12px;padding:0 15px;font:inherit;font-size:15px;color:#332a29;background:#fffcf3a6;outline-offset:3px}
+.nl-landing .nl-waitlist-form input::placeholder{color:#8b817a}
+.nl-landing .nl-waitlist-form button{height:49px;border:0;border-radius:28px;background:linear-gradient(100deg,#53091f,#640a26 48%,#480b20);color:white;font:700 14px var(--font-dm),sans-serif;cursor:pointer;box-shadow:0 2px 5px #40132516}
+.nl-landing .nl-waitlist-form button:hover{filter:brightness(1.13)}
+.nl-landing .nl-waitlist-form button:disabled{opacity:.6;cursor:default}
+.nl-landing .nl-honeypot{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.nl-landing .nl-form-status{font-size:12px;line-height:1.3;margin:0;color:#5a1b30}
+.nl-landing .nl-form-status:empty{display:none}
+.nl-landing .nl-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%;max-width:610px;margin:45px auto 24px;text-align:center}
+.nl-landing .nl-benefit{display:flex;flex-direction:column;align-items:center;gap:4px}
+.nl-landing .nl-benefit svg{width:55px;height:55px;filter:drop-shadow(0 3px 3px #2a160b20)}
+.nl-landing .nl-benefit h2{font-size:14px;line-height:1.2;font-weight:700;margin:0;white-space:nowrap}
+.nl-landing .nl-info-strip{margin-top:auto;align-self:stretch;min-height:65px;background:linear-gradient(110deg,#570c25,#650b29 58%,#50091e);border-radius:22px;color:#f7e6e9;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:center;gap:12px;padding:13px 24px;font-size:12px;line-height:1.35;box-shadow:0 4px 12px #440d211a}
+.nl-landing .nl-visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:620px){.nl-landing__canvas{min-height:100svh;padding:142px 20px 12px}.nl-landing .nl-origami--plane{width:165px;right:10px;top:15px}.nl-landing .nl-origami--boat{width:125px;left:-20px;top:230px;opacity:.75}.nl-landing .nl-hero h1{font-size:clamp(25px,6vw,36px);letter-spacing:-1px}.nl-landing .nl-hero__intro{font-size:13px;max-width:330px}.nl-landing .nl-benefits{gap:6px;margin-top:40px}.nl-landing .nl-benefit svg{width:45px;height:45px}.nl-landing .nl-benefit h2{font-size:10px;white-space:normal}.nl-landing .nl-info-strip{grid-template-columns:1fr 1fr;gap:10px;padding:15px 18px;font-size:11px;border-radius:18px}}
+@media(min-width:900px){.nl-landing__canvas{min-height:100vh}}

@@ -6,7 +6,7 @@
 - Shared UI building blocks live in `components/`:
   - `components/Shell.tsx` → `Header`, `Footer`, `CookieConsent`
   - `components/Blocks.tsx` → `PageHero`, `Cta`
-  - `components/Forms.tsx` → client form UX + Turnstile token handling
+  - `components/Forms.tsx` → client form UX + reCAPTCHA token handling
 - Global composition is in `app/layout.tsx` (imports `Header`, `Footer`, `CookieConsent`).
 
 ## Data flow and service boundaries (forms)
@@ -16,11 +16,11 @@
   2. Zod parse (`kind` = `enquiry | tour | waitlist` + field constraints)
   3. honeypot short-circuit (`website` field)
   4. date/business-rule checks for tour/waitlist
-  5. Upstash Redis hourly rate limit (8/hour/IP)
-  6. Cloudflare Turnstile server verification
-  7. inbox email via Resend + best-effort acknowledgement email
+  5. Google reCAPTCHA v3 server verification (action `submit`, score ≥ 0.5)
+  6. inbox email via Resend + best-effort acknowledgement email
+  7. Axiom activity log (best-effort; no personal data)
 - `runtime='nodejs'` is intentional; keep it unless you redesign integrations.
-- Submission data is **email-delivered only** (no database). Redis is only abuse-control.
+- Submission data is **email-delivered only** (no database).
 
 ## Project-specific coding conventions
 - Keep source compact style consistent with existing files (single-line JSX blocks/common minimal spacing).
@@ -32,7 +32,7 @@
 - Forms are client components (`'use client'`) and must continue posting JSON to `/api/submit`.
 
 ## Environment + fail-closed behavior
-- Required integrations are documented in `README.md`: Resend, Turnstile, Upstash Redis, Google Analytics.
+- Required integrations are documented in `.env.example`: Resend, reCAPTCHA v3, Axiom (optional), Google Analytics.
 - Treat missing form/security env vars as **configuration errors** (fail closed), consistent with current API behavior.
 - `CookieConsent` only loads GA after explicit consent (`localStorage` key: `neverland-analytics-choice`). Preserve this gating.
 
@@ -49,6 +49,6 @@
 - When changing form fields, update both sides together:
   - client payload construction in `components/Forms.tsx`
   - Zod schema + business rules + email field rendering in `app/api/submit/route.ts`
-- Do not remove or bypass anti-abuse layers (honeypot, rate-limit, Turnstile) unless explicitly requested.
+- Do not remove or bypass anti-abuse layers (honeypot, origin check, reCAPTCHA) unless explicitly requested.
 - Keep placeholder content markers (`[PHONE]`, `[DOMAIN]`, etc.) unless task explicitly provides approved replacements.
 - `public/reference/*.jpeg` are visual references only; do not render them as page content unless asked.

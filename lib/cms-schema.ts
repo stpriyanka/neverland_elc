@@ -15,7 +15,7 @@ export const PAGES: PageDef[] = [
     slug: 'site', label: 'Site (global)',
     sections: [
       { title: 'Contact & footer', fields: [
-        t('site.phone', 'Phone', '+880 [PHONE]'),
+        t('site.phone', 'Phone', '+8801781288659'),
         t('site.email', 'Email', 'hello@[DOMAIN]'),
         t('site.address', 'Address', '[STREET ADDRESS], Banani, Dhaka'),
         t('site.hours', 'Opening hours', 'Sun–Thu · 8:00 – 6:00'),
