@@ -1,0 +1,4 @@
+[build.environment]
+  # The contact phone number is intentionally public (shown on the website and
+  # inlined into the client bundle), so exclude it from secrets scanning.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_CONTACT_PHONE"
