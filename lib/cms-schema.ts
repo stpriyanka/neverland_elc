@@ -16,10 +16,10 @@ export const PAGES: PageDef[] = [
     sections: [
       { title: 'Contact & footer', fields: [
         t('site.phone', 'Phone', '+8801781288659'),
-        t('site.email', 'Email', 'hello@[DOMAIN]'),
+        t('site.email', 'Email', 'info@neverlandelc.com'),
         t('site.address', 'Address', '[STREET ADDRESS], Banani, Dhaka'),
         t('site.hours', 'Opening hours', 'Sun–Thu · 8:00 – 6:00'),
-        t('site.footer', 'Footer line', 'Banani, Dhaka · Sun–Thu 8:00–6:00 · hello@[DOMAIN]'),
+        t('site.footer', 'Footer line', 'Banani, Dhaka · Sun–Thu 8:00–6:00 · info@neverlandelc.com'),
       ]},
     ],
   },
@@ -184,7 +184,7 @@ export const PAGES: PageDef[] = [
       { title: 'Privacy policy', fields: [
         t('privacy.title', 'Title', 'Privacy Policy'),
         ta('privacy.notice', 'Notice', 'Draft — requires Neverland review before public launch.'),
-        ta('privacy.body', 'Body (one paragraph per line)', 'We collect name, email, phone and message for enquiries. Tour and waitlist requests also collect a child\'s date of birth and preferred date.\nSubmissions are emailed to Neverland\'s central inbox; no separate website submission database is maintained. Email providers process submissions and acknowledgements. We use spam checks and rate limits.\nGoogle Analytics loads only with your consent. Retention periods for enquiry, tour and waitlist emails are pending approval.\nContact: hello@[DOMAIN]'),
+        ta('privacy.body', 'Body (one paragraph per line)', 'We collect name, email, phone and message for enquiries. Tour and waitlist requests also collect a child\'s date of birth and preferred date.\nSubmissions are emailed to Neverland\'s central inbox; no separate website submission database is maintained. Email providers process submissions and acknowledgements. We use spam checks and rate limits.\nGoogle Analytics loads only with your consent. Retention periods for enquiry, tour and waitlist emails are pending approval.\nContact: info@neverlandelc.com'),
       ]},
     ],
   },
