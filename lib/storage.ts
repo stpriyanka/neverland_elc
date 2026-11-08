@@ -32,6 +32,22 @@ export async function writeImage(name: string, bytes: Buffer, contentType: strin
 }
 
 export async function readImage(name: string): Promise<{ bytes: ArrayBuffer; contentType: string } | null> {
+  if (!/^[\w.-]+$/.test(name)) return null;
+  if (!onNetlify()) {
+    const contentTypes: Record<string, string> = {
+      '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png',
+      '.webp': 'image/webp', '.gif': 'image/gif',
+    };
+    const contentType = contentTypes[path.extname(name).toLowerCase()];
+    if (!contentType) return null;
+    try {
+      const bytes = await fs.readFile(path.join(process.cwd(), 'public', 'uploads', name));
+      return { bytes: Uint8Array.from(bytes).buffer, contentType };
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') return null;
+      throw error;
+    }
+  }
   const store = getStore({ name: STORE, consistency: 'strong' });
   const blob = await store.getWithMetadata(`uploads/${name}`, { type: 'arrayBuffer' });
   if (!blob) return null;

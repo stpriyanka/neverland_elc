@@ -13,16 +13,21 @@ export function LoginForm() {
     e.preventDefault();
     setBusy(true);
     setError('');
-    const res = await fetch('/api/admin/login', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    });
-    if (res.ok) {
-      router.push('/team-k7x2q9');
-      router.refresh();
-    } else {
-      setError((await res.json().catch(() => ({}))).error || 'Login failed');
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      if (res.ok) {
+        router.push('/team-k7x2q9');
+        router.refresh();
+      } else {
+        setError((await res.json().catch(() => ({}))).error || 'Login failed');
+      }
+    } catch {
+      setError('Unable to connect. Check your connection and try again.');
+    } finally {
       setBusy(false);
     }
   }

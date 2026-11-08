@@ -21,17 +21,26 @@ export function AdminEditor({ pages, initial }: { pages: PageDef[]; initial: Rec
   async function upload(key: string, file: File) {
     setBusy(true);
     setStatus('Uploading image…');
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
-    const data = await res.json().catch(() => ({}));
-    if (res.ok) {
-      set(key, data.url);
-      setStatus('Image uploaded. Click Save to publish.');
-    } else {
-      setStatus(data.error || 'Upload failed');
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && typeof data.url === 'string') {
+        set(key, data.url);
+        setStatus('Image uploaded. Click Save to publish.');
+      } else if (res.status === 401) {
+        setStatus('Your session has expired. Redirecting to sign in…');
+        router.push('/team-k7x2q9/login');
+        router.refresh();
+      } else {
+        setStatus(data.error || 'Upload failed. Please try again.');
+      }
+    } catch {
+      setStatus('Upload failed: network error. Check the connection and try again.');
+    } finally {
+      setBusy(false);
     }
-    setBusy(false);
   }
 
   async function save() {
