@@ -134,7 +134,7 @@ export default function TempLanding() {
             <div className="nl-contact-copy">
               <p className="nl-section-label">Visit &amp; Contact</p>
               <h2 id="nl-contact-title">Come and say <em>hello.</em></h2>
-              <p className="nl-contact-lead">Book a tour to see the rooms, meet the educators and talk through how EYLF learning looks day to day at Neverland.</p>
+              <p className="nl-contact-lead">Visit our rooms, meet the educators, and discover how we learn through play.</p>
 
               <div className="nl-contact-details">
                 <div className="nl-contact-item"><span className="nl-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="m4.5 7 7.5 6 7.5-6"/></svg></span><div><span className="nl-contact-label">Email</span><a href="mailto:ash@neverlandelc.com">ash@neverlandelc.com</a><a href="mailto:info@neverlandelc.com">info@neverlandelc.com</a></div></div>
@@ -146,7 +146,7 @@ export default function TempLanding() {
               <div className="nl-day-list" aria-label="Open Saturday through Thursday, closed Friday">
                 <span>Sat</span><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span className="nl-closed-day">Fri</span>
               </div>
-              <p className="nl-schedule-note">Saturday to Thursday, 8:00 am – 6:00 pm. Closed on Fridays.</p>
+              <p className="nl-schedule-note">8:00 am–6:00 pm · Closed Fridays</p>
             </div>
             <div className="nl-contact-art" aria-hidden="true">
               <svg className="nl-decor nl-star nl-contact-star" viewBox="0 0 40 40"><path d="M20 1 23 15 34 6 27 18 40 20 27 23 34 35 22 26 20 40 17 26 5 34 13 22 1 20 14 17 6 5 18 14Z" fill="currentColor"/></svg>
