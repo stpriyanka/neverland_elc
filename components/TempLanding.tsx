@@ -105,7 +105,7 @@ export default function TempLanding() {
             <div id="about" className="nl-value-grid" aria-label="What makes Neverland special">
               <article id="curriculum" className="nl-value">
                 <div className="nl-value-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#dbc08b"/><path d="M32 12C39 21 43 27 43 34c0 10-5 15-11 19-6-4-11-9-11-19 0-7 4-13 11-22Z" fill="#4a0b13"/><path d="M32 21c-5 11-4 22 0 28 4-6 5-17 0-28Z" fill="#f6efdf"/><circle cx="32" cy="32" r="3.7" fill="#4a0b13"/></svg></div>
-                <h2>Australia EYLF Standards</h2>
+                <h2>Australia&apos;s EYLF Standards</h2>
                 <p>A nationally recognised learning framework, shaping every day from birth to five.</p>
               </article>
               <article className="nl-value">
